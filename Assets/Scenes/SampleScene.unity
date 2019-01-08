@@ -332,7 +332,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 277854088}
   m_LocalRotation: {x: -0, y: -0, z: 0.02826229, w: -0.9996006}
-  m_LocalPosition: {x: -12.7, y: 7.81, z: 0}
+  m_LocalPosition: {x: -12.7, y: 7.66, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -548,7 +548,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 509226882}
   m_LocalRotation: {x: -0, y: -0, z: -0.19820614, w: 0.9801604}
-  m_LocalPosition: {x: 35.07, y: 23.11, z: 0}
+  m_LocalPosition: {x: 35.041, y: 23.062, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -585,15 +585,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   walkingSpeed: 9
-  jumpVelocity: 15
+  jumpVelocity: 16
   groundedTimerMax: 0.05
   jumpedTimerMax: 0.15
-  dashesMax: 2
-  dashDuration: 0.25
-  dashWarmupDuration: 0.2
-  dashSpeed: 18
-  climbSpeed: 6
-  climbTimerMax: 3
 --- !u!70 &512057035
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -932,9 +926,9 @@ MonoBehaviour:
   m_DeadZoneDepth: 0
   m_UnlimitedSoftZone: 0
   m_SoftZoneWidth: 0.8
-  m_SoftZoneHeight: 0.8
+  m_SoftZoneHeight: 0.85
   m_BiasX: 0
-  m_BiasY: 0
+  m_BiasY: -0.2250001
   m_CenterOnActivate: 1
   m_GroupFramingMode: 2
   m_AdjustmentMode: 2
@@ -1194,6 +1188,7 @@ GameObject:
   - component: {fileID: 2086863815}
   - component: {fileID: 2086863814}
   - component: {fileID: 2086863817}
+  - component: {fileID: 2086863818}
   m_Layer: 8
   m_Name: SpriteShape
   m_TagString: Walkable
@@ -1251,7 +1246,7 @@ MonoBehaviour:
       bevelSize: 0
       spriteIndex: 0
       corner: 0
-    - position: {x: -17.769663, y: 9.926523, z: 0}
+    - position: {x: -17.340446, y: 9.987841, z: 0}
       leftTangent: {x: -1.5137115, y: 1.4922193, z: -0}
       rightTangent: {x: 1.5137115, y: -1.4922193, z: 0}
       mode: 0
@@ -1475,12 +1470,12 @@ PolygonCollider2D:
       - {x: -11.08377, y: 4.00396}
       - {x: -11.72286, y: 4.10972}
       - {x: -11.74535, y: 4.11138}
-      - {x: -17.15503, y: 4.02315}
-      - {x: -17.52551, y: 10.02901}
-      - {x: -17.64232, y: 10.15869}
-      - {x: -24.02021, y: 11.22612}
-      - {x: -24.1928, y: 11.09342}
-      - {x: -24.21523, y: 10.85554}
+      - {x: -17.13782, y: 4.02343}
+      - {x: -17.0897, y: 10.07942}
+      - {x: -17.21145, y: 10.22154}
+      - {x: -24.02395, y: 11.22456}
+      - {x: -24.19293, y: 11.09197}
+      - {x: -24.21523, y: 10.85555}
       - {x: -24.27652, y: 10.48301}
       - {x: -24.42499, y: 9.893}
       - {x: -24.6983, y: 9.11822}
@@ -1500,3 +1495,14 @@ PolygonCollider2D:
       - {x: -32.72312, y: -3.78905}
       - {x: -32.57696, y: -3.94194}
       - {x: 49.34507, y: -4.55906}
+--- !u!114 &2086863818
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2086863813}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c5864699e39010842b56ef31e2a599f4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
