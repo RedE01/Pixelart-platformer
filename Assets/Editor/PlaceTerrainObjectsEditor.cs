@@ -7,15 +7,12 @@ public class PlaceTerrainObjectsEditor : Editor {
 
 	GameObject m_target;
 	SerializedProperty objectPrefab;
-	Camera mainCamera;
 	GameObject createdGameObject;
 	List<GameObject> prefabs = new List<GameObject>();
-	int prefabSelected = 0;
 	int depthVal = 0;
 
 	void OnEnable() {
 		objectPrefab = serializedObject.FindProperty("ObjectPrefabs");
-		mainCamera = Camera.main;
 	}
 
 	void OnSceneGUI() {
@@ -29,8 +26,7 @@ public class PlaceTerrainObjectsEditor : Editor {
 			int buttonX = 10 + 110 * (i % 2);
 			int buttonY = 50 + 26 * (i / 2);
 			if(GUI.Button(new Rect(buttonX, buttonY, 100, 25), iterator.objectReferenceValue.name)) {
-				prefabSelected = i;
-				InstantiateObject(e.mousePosition);
+				InstantiateObject(e.mousePosition, i);
 				createdGameObject.GetComponent<SpriteRenderer>().sortingOrder = depthVal;
 			}
 		}
@@ -48,8 +44,8 @@ public class PlaceTerrainObjectsEditor : Editor {
 		Handles.EndGUI();
 	}
 
-	void InstantiateObject(Vector2 mousePos) {
-		createdGameObject = (GameObject)Instantiate(getPrefab(), getMouseToWorldPos(mousePos), Quaternion.identity);
+	void InstantiateObject(Vector2 mousePos, int i) {
+		createdGameObject = (GameObject)Instantiate(getPrefab(i), getMouseToWorldPos(mousePos), Quaternion.identity);
 	}
 
 	Vector3 getMouseToWorldPos(Vector2 mousePos) {
@@ -58,7 +54,7 @@ public class PlaceTerrainObjectsEditor : Editor {
 		return o;
 	}
 
-	Object getPrefab() {
-		return objectPrefab.GetArrayElementAtIndex(prefabSelected).objectReferenceValue;
+	Object getPrefab(int i) {
+		return objectPrefab.GetArrayElementAtIndex(i).objectReferenceValue;
 	}
 }
