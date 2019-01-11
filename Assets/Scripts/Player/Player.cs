@@ -25,7 +25,7 @@ public class Player : MonoBehaviour {
 
 	void Start() {
 		rb2d = GetComponent<Rigidbody2D>();
-		groundLayerMask = LayerMask.GetMask("Ground");
+		groundLayerMask = ~LayerMask.GetMask("Player"); //All layermasks except Player layermask
 
 		speed = walkingSpeed;
 		playerSize = GetComponent<CapsuleCollider2D>().size;
