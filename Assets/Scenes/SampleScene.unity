@@ -595,6 +595,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f54bd8d0f208a4848a5aefde072de2ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  walkingSpeed: 2
+  chasingSpeed: 4
+  dazedTime: 0.6
+  chasingRadius: 8
+  attackRadius: 1
 --- !u!1 &1617705371 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4684611109680292668, guid: 3fd5329f6a61cab4f909b133fb363759,
@@ -1045,11 +1050,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
-    - target: {fileID: 3564221120825327622, guid: ecba358458b958747a8d6edfb7897760,
-        type: 3}
-      propertyPath: m_Layer
-      value: 10
-      objectReference: {fileID: 0}
     - target: {fileID: 3564221120825327617, guid: ecba358458b958747a8d6edfb7897760,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1107,13 +1107,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6003779121154515765, guid: ecba358458b958747a8d6edfb7897760,
         type: 3}
-      propertyPath: attackDamage
-      value: 10
+      propertyPath: attackRadius
+      value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 6003779121154515765, guid: ecba358458b958747a8d6edfb7897760,
+    - target: {fileID: 5331352734190349130, guid: ecba358458b958747a8d6edfb7897760,
         type: 3}
-      propertyPath: attackRange
-      value: 2.5
+      propertyPath: m_LocalPosition.x
+      value: 1.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 5331352734190349130, guid: ecba358458b958747a8d6edfb7897760,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ecba358458b958747a8d6edfb7897760, type: 3}

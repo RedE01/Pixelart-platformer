@@ -9,12 +9,17 @@ public class Player : MonoBehaviour {
 	public float groundedTimerMax;
 	public float jumpedTimerMax;
 
+	[HideInInspector]
+	public int facingDir;
+	[HideInInspector]
+	public float movement;
+	[HideInInspector]
+	public Vector2 otherMovement;
+
 	private float speed;
 	private bool isGrounded;
 	private float groundedTimer;
 	private float jumpedTimer;
-	private float movement;
-	private float otherMovement;
 	private Vector2 groundNormal;
 	private Vector2 playerSize;
 
@@ -38,11 +43,14 @@ public class Player : MonoBehaviour {
 		rb2d.gravityScale = 1.0f;
 		isGrounded = checkIfGrounded();
 
+		int inputDir = (int)Input.GetAxisRaw("Horizontal");
+		if (inputDir != 0) facingDir = inputDir;
+
 		if (isGrounded) {
 			groundedTimer = 0.0f;
 			if (movement == 0.0f) rb2d.gravityScale = 0.0f;
 			if (movement * groundNormal.x < 0.0f) movement *= groundNormal.y;
-			if(jumpedTimer > jumpedTimerMax + 0.1f) otherMovement = 0.0f;
+			if(jumpedTimer > jumpedTimerMax + 0.1f) otherMovement.x = 0.0f;
 		}
 		else {
 			groundedTimer += Time.deltaTime;
@@ -60,7 +68,7 @@ public class Player : MonoBehaviour {
 	}
 
 	void FixedUpdate() {
-		rb2d.velocity = new Vector2(movement + otherMovement, rb2d.velocity.y);
+		rb2d.velocity = new Vector2(movement + otherMovement.x, rb2d.velocity.y);
 	}
 
 	void OnCollisionStay2D(Collision2D collision) {
@@ -85,7 +93,7 @@ public class Player : MonoBehaviour {
 
 		Vector2 jumpDir = new Vector2(groundNormal.x * 0.45f, groundNormal.y * 2.0f).normalized;
 		rb2d.velocity = new Vector2(rb2d.velocity.x, jumpDir.y * jumpVelocity);
-		otherMovement = jumpDir.x * jumpVelocity;
+		otherMovement.x = jumpDir.x * jumpVelocity;
 	}
 
 }

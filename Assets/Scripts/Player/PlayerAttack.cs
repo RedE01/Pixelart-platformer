@@ -5,26 +5,35 @@ using UnityEngine;
 public class PlayerAttack : MonoBehaviour {
 
 	public int attackDamage;
-	public float attackRange;
+	public Transform attackPos;
+	public float attackRadius;
 
-	int facingDir;
 	Vector2 playerSize;
 	LayerMask targetMask;
+	Player playerScript;
+	Rigidbody2D rb2d;
 
 	void Start() {
 		playerSize = GetComponent<CapsuleCollider2D>().size;
 		targetMask = LayerMask.GetMask("Enemy");
+		playerScript = GetComponent<Player>();
+		rb2d = GetComponent<Rigidbody2D>();
 	}
 
 	void Update() {
-		int inputDir = (int)Input.GetAxisRaw("Horizontal");
-		if (inputDir != 0) facingDir = inputDir;
+		
 		if(Input.GetKeyDown(KeyCode.X)) {
-			Collider2D[] targets = Physics2D.OverlapAreaAll(new Vector2(transform.position.x, transform.position.y + playerSize.y * 0.5f), new Vector2(transform.position.x + attackRange * facingDir, transform.position.y - playerSize.y * 0.5f), targetMask);
+			attackPos.localPosition = new Vector2(Mathf.Abs(attackPos.localPosition.x) * playerScript.facingDir, attackPos.localPosition.y);
+			Collider2D[] targets = Physics2D.OverlapCircleAll(attackPos.position, attackRadius, targetMask);
 			foreach(Collider2D t in targets) {
-				t.GetComponent<Enemy>().TakeDamage(attackDamage, facingDir);
+				t.GetComponent<Enemy>().TakeDamage(attackDamage, playerScript.facingDir);
 			}
 		}
+	}
+
+	void OnDrawGizmosSelected() {
+		Gizmos.color = Color.red;
+		Gizmos.DrawWireSphere(attackPos.position, attackRadius);
 	}
 
 }
