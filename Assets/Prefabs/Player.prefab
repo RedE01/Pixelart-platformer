@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 3564221120825327616}
   - component: {fileID: 3564221120825327621}
   - component: {fileID: 6003779121154515765}
+  - component: {fileID: 1005071288835881623}
   m_Layer: 10
   m_Name: Player
   m_TagString: Player
@@ -138,7 +139,11 @@ MonoBehaviour:
   jumpVelocity: 16
   groundedTimerMax: 0.05
   jumpedTimerMax: 0.15
+  impactParticles: {fileID: 4643275730623349916, guid: 703f859e557c27640af36c6c560dedb9,
+    type: 3}
   facingDir: 0
+  movement: 0
+  otherMovement: {x: 0, y: 0}
 --- !u!114 &6003779121154515765
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -153,9 +158,29 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attackDamage: 10
-  attackRange: 2.5
   attackPos: {fileID: 5331352734190349130}
-  attackRadius: 0.5
+  attackRadius: 1
+  attackParticles: {fileID: 5349479635595959259, guid: 4e6eb0f543a44e445b9d7745ffc88ffd,
+    type: 3}
+--- !u!95 &1005071288835881623
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3564221120825327622}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 8a7614a10c3b20b41bb6cce0c504c55c, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &4612853639783881578
 GameObject:
   m_ObjectHideFlags: 0
@@ -180,7 +205,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4612853639783881578}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.884, y: 0, z: 0}
+  m_LocalPosition: {x: 1.4, y: 0.2, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 3564221120825327617}

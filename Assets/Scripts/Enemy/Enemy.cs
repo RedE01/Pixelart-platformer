@@ -91,7 +91,8 @@ public class Enemy : MonoBehaviour {
 		movement.x = chasingSpeed * walkDir;
 	}
 	protected virtual void OnAttacking() {
-		SwitchState(EnemyState.Chasing);
+		movement = Vector2.zero;
+		if (!Physics2D.OverlapCircle(transform.position, attackRadius, playerLayerMask)) SwitchState(EnemyState.Chasing);
 	}
 	protected virtual void OnDazed() {}
 

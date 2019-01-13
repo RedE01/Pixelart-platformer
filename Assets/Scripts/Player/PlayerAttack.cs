@@ -7,6 +7,7 @@ public class PlayerAttack : MonoBehaviour {
 	public int attackDamage;
 	public Transform attackPos;
 	public float attackRadius;
+	public GameObject attackParticles;
 
 	Vector2 playerSize;
 	LayerMask targetMask;
@@ -21,12 +22,12 @@ public class PlayerAttack : MonoBehaviour {
 	}
 
 	void Update() {
-		
 		if(Input.GetKeyDown(KeyCode.X)) {
 			attackPos.localPosition = new Vector2(Mathf.Abs(attackPos.localPosition.x) * playerScript.facingDir, attackPos.localPosition.y);
 			Collider2D[] targets = Physics2D.OverlapCircleAll(attackPos.position, attackRadius, targetMask);
 			foreach(Collider2D t in targets) {
 				t.GetComponent<Enemy>().TakeDamage(attackDamage, playerScript.facingDir);
+				Instantiate(attackParticles, t.transform.position, Quaternion.identity);
 			}
 		}
 	}

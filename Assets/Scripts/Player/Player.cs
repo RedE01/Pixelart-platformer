@@ -8,6 +8,7 @@ public class Player : MonoBehaviour {
 	public float jumpVelocity;
 	public float groundedTimerMax;
 	public float jumpedTimerMax;
+	public GameObject impactParticles;
 
 	[HideInInspector]
 	public int facingDir;
@@ -26,11 +27,13 @@ public class Player : MonoBehaviour {
 	private Rigidbody2D rb2d;
 	private LayerMask groundLayerMask;
 	private Collider2D groundCollider;
+	private Animator animator;
 
 
 	void Start() {
 		rb2d = GetComponent<Rigidbody2D>();
 		groundLayerMask = ~LayerMask.GetMask("Player"); //All layermasks except Player layermask
+		animator = GetComponent<Animator>();
 
 		speed = walkingSpeed;
 		playerSize = GetComponent<CapsuleCollider2D>().size;
@@ -41,7 +44,12 @@ public class Player : MonoBehaviour {
 	void Update() {
 		movement = Input.GetAxis("Horizontal") * speed;
 		rb2d.gravityScale = 1.0f;
+		bool wasGrounded = isGrounded;
 		isGrounded = checkIfGrounded();
+		if (!wasGrounded && isGrounded && groundedTimer > 0.2f) {
+			animator.SetTrigger("Land");
+			Debug.Log("LANDED");
+		}
 
 		int inputDir = (int)Input.GetAxisRaw("Horizontal");
 		if (inputDir != 0) facingDir = inputDir;
@@ -96,4 +104,8 @@ public class Player : MonoBehaviour {
 		otherMovement.x = jumpDir.x * jumpVelocity;
 	}
 
+	public void InstantiateLandParticles() {
+		Instantiate(impactParticles, transform.position + Vector3.down * playerSize.y * 0.5f, Quaternion.identity);
+		Debug.Log("HELLO");
+	}
 }
