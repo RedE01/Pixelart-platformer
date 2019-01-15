@@ -48,7 +48,6 @@ public class Player : MonoBehaviour {
 		isGrounded = checkIfGrounded();
 		if (!wasGrounded && isGrounded && groundedTimer > 0.2f) {
 			animator.SetTrigger("Land");
-			Debug.Log("LANDED");
 		}
 
 		int inputDir = (int)Input.GetAxisRaw("Horizontal");
@@ -106,6 +105,5 @@ public class Player : MonoBehaviour {
 
 	public void InstantiateLandParticles() {
 		Instantiate(impactParticles, transform.position + Vector3.down * playerSize.y * 0.5f, Quaternion.identity);
-		Debug.Log("HELLO");
 	}
 }

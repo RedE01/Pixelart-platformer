@@ -4,14 +4,18 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour {
 
+	public float health;
 	public float walkingSpeed;
 	public float chasingSpeed;
 	public float dazedTime;
 	public float chasingRadius;
 	public float attackRadius;
+	public GameObject damageParticles;
+	public GameObject deathParticles;
+	public GameObject debris;
 
 	protected enum EnemyState {
-		Idle, Chasing, Attacking, Dazed
+		Idle, Chasing, Attacking, Dazed, Death
 	};
 	protected EnemyState state = EnemyState.Idle;
 	protected Vector2 movement;
@@ -50,6 +54,8 @@ public class Enemy : MonoBehaviour {
 				dazedTimer -= Time.deltaTime;
 				if (dazedTimer < 0.0f) SwitchState(EnemyState.Idle);
 				break;
+			case EnemyState.Death:
+				break;
 		}
 	}
 
@@ -72,9 +78,15 @@ public class Enemy : MonoBehaviour {
 	}
 
 	public void TakeDamage(int damage, int kbDir) {
+		health -= damage;
 		dazedTimer = dazedTime;
 		state = EnemyState.Dazed;
 		rb2d.AddForce(new Vector2(kbDir, 0.5f) * damage * 75);
+		Instantiate(damageParticles, transform.position, Quaternion.identity);
+		if(health < 0.0f) {
+			state = EnemyState.Death;
+			Die(kbDir);
+		}
 	}
 
 	protected virtual void OnIdle() {
@@ -95,6 +107,12 @@ public class Enemy : MonoBehaviour {
 		if (!Physics2D.OverlapCircle(transform.position, attackRadius, playerLayerMask)) SwitchState(EnemyState.Chasing);
 	}
 	protected virtual void OnDazed() {}
+
+	protected virtual void Die(int hitDirection) {
+		Instantiate(deathParticles, transform.position, Quaternion.Euler(0, 0, hitDirection < 0 ? 180 : 0));
+		Instantiate(debris, transform.position, Quaternion.Euler(0, 0, 90));
+		Destroy(this.gameObject);
+	}
 
 	protected virtual void OnIdleEnabled() { }
 	protected virtual void OnChasingEnabled() { }
