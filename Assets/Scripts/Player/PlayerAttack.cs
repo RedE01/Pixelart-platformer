@@ -12,12 +12,14 @@ public class PlayerAttack : MonoBehaviour {
 	LayerMask targetMask;
 	Player playerScript;
 	Rigidbody2D rb2d;
+	CameraShake cameraShake;
 
 	void Start() {
 		playerSize = GetComponent<CapsuleCollider2D>().size;
 		targetMask = LayerMask.GetMask("Enemy");
 		playerScript = GetComponent<Player>();
 		rb2d = GetComponent<Rigidbody2D>();
+		cameraShake = Camera.main.GetComponent<CameraShake>();
 	}
 
 	void Update() {
@@ -26,6 +28,9 @@ public class PlayerAttack : MonoBehaviour {
 			Collider2D[] targets = Physics2D.OverlapCircleAll(attackPos.position, attackRadius, targetMask);
 			foreach(Collider2D t in targets) {
 				t.GetComponent<Enemy>().TakeDamage(attackDamage, playerScript.facingDir);
+			}
+			if(targets.Length > 0) {
+				StartCoroutine(cameraShake.Shake(0.1f, 0.25f, 3.0f));
 			}
 		}
 	}
