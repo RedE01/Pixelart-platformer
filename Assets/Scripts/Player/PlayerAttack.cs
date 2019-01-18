@@ -27,10 +27,12 @@ public class PlayerAttack : MonoBehaviour {
 			attackPos.localPosition = new Vector2(Mathf.Abs(attackPos.localPosition.x) * playerScript.facingDir, attackPos.localPosition.y);
 			Collider2D[] targets = Physics2D.OverlapCircleAll(attackPos.position, attackRadius, targetMask);
 			foreach(Collider2D t in targets) {
-				t.GetComponent<Enemy>().TakeDamage(attackDamage, playerScript.facingDir);
+				if(t.GetComponent<Enemy>().TakeDamage(attackDamage, playerScript.facingDir)) {
+					StartCoroutine(cameraShake.Shake(0.2f, 0.75f, 4.0f));
+				}
 			}
 			if(targets.Length > 0) {
-				StartCoroutine(cameraShake.Shake(0.1f, 0.25f, 3.0f));
+				StartCoroutine(cameraShake.Shake(0.1f, 0.3f, 3.0f));
 			}
 		}
 	}

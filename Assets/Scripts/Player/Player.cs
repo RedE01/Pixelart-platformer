@@ -28,12 +28,14 @@ public class Player : MonoBehaviour {
 	private LayerMask groundLayerMask;
 	private Collider2D groundCollider;
 	private Animator animator;
+	private CameraShake cameraShake;
 
 
 	void Start() {
 		rb2d = GetComponent<Rigidbody2D>();
 		groundLayerMask = ~LayerMask.GetMask("Player"); //All layermasks except Player layermask
 		animator = GetComponent<Animator>();
+		cameraShake = Camera.main.GetComponent<CameraShake>();
 
 		speed = walkingSpeed;
 		playerSize = GetComponent<CapsuleCollider2D>().size;
@@ -47,6 +49,7 @@ public class Player : MonoBehaviour {
 		bool wasGrounded = isGrounded;
 		isGrounded = checkIfGrounded();
 		if (!wasGrounded && isGrounded && groundedTimer > 0.2f) {
+			StartCoroutine(cameraShake.Shake(0.1f, 0.2f, 1.0f));
 			animator.SetTrigger("Land");
 		}
 

@@ -28,11 +28,13 @@ public class Enemy : MonoBehaviour {
 
 	private float idleTimeSinceSwitch = 0;
 	private float idleSwitchTime = 3.0f;
+	private SpriteRenderer spRenderer;
 
 	void Start() {
 		player = GameObject.FindGameObjectWithTag("Player");
 		rb2d = GetComponent<Rigidbody2D>();
 		playerLayerMask = LayerMask.GetMask("Player");
+		spRenderer = GetComponent<SpriteRenderer>();
 	}
 
 	public void Update() {
@@ -77,16 +79,33 @@ public class Enemy : MonoBehaviour {
 		}
 	}
 
-	public void TakeDamage(int damage, int kbDir) {
+	public bool TakeDamage(int damage, int kbDir) {
 		health -= damage;
 		dazedTimer = dazedTime;
 		state = EnemyState.Dazed;
 		rb2d.AddForce(new Vector2(kbDir, 0.5f) * damage * 75);
 		Instantiate(damageParticles, transform.position, Quaternion.identity);
+		StartCoroutine(flashSprite());
 		if(health < 0.0f) {
 			state = EnemyState.Death;
 			Die(kbDir);
+			return true;
 		}
+		return false;
+	}
+
+	IEnumerator flashSprite() {
+		float flashTime = 0.08f;
+		float flashTimer = 0.0f;
+
+		while(flashTimer < flashTime) {
+			spRenderer.material.SetFloat("_FlashAmmount", flashTimer * 20f);
+
+			flashTimer += Time.deltaTime;
+			yield return null;
+		}
+
+		spRenderer.material.SetFloat("_FlashAmmount", 0.0f);
 	}
 
 	protected virtual void OnIdle() {
