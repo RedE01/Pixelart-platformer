@@ -130,6 +130,7 @@ public class Enemy : MonoBehaviour {
 	protected virtual void Die(int hitDirection) {
 		Instantiate(deathParticles, transform.position, Quaternion.Euler(0, 0, hitDirection < 0 ? 180 : 0));
 		Instantiate(debris, transform.position, Quaternion.Euler(0, 0, 90));
+		GameManager.instance.timeManager.StartCoroutine(GameManager.instance.timeManager.setTimeScaleForSeconds(0.25f, 0.15f));
 		Destroy(this.gameObject);
 	}
 
