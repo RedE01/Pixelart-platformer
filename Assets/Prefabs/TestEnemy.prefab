@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 539937073386753383}
   m_Layer: 9
   m_Name: TestEnemy
-  m_TagString: Untagged
+  m_TagString: Entity
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -132,7 +132,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f54bd8d0f208a4848a5aefde072de2ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 30
+  health: 5
   walkingSpeed: 2
   chasingSpeed: 4
   dazedTime: 0.6

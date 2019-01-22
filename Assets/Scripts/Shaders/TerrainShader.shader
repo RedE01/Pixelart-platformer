@@ -1,8 +1,7 @@
-﻿Shader "Custom/Sprite Flash" {
+﻿Shader "Custom/Terrain Sprite" {
 	Properties{
 		_MainTex("Base (RGB)", 2D) = "white" {}
 		_Color("Color", Color) = (1, 1, 1, 1)
-		_FlashAmmount("Flash Ammount", Range(0.0, 1.0)) = 0.0
 	}
 		SubShader{
 			Tags
@@ -42,13 +41,11 @@
 
 				fixed4 _Color;
 				float4 _MainTex_TexelSize;
-				float _FlashAmmount;
 
 				fixed4 frag(v2f i) : COLOR
 				{
 					half4 c = tex2D(_MainTex, i.uv);
-					c.rgb *= c.a;
-					c.rgb += _FlashAmmount * c.a;
+					c *= c.a;
 
 					return c;
 				}

@@ -33,7 +33,7 @@ public class Player : MonoBehaviour {
 
 	void Start() {
 		rb2d = GetComponent<Rigidbody2D>();
-		groundLayerMask = ~LayerMask.GetMask("Player"); //All layermasks except Player layermask
+		groundLayerMask = LayerMask.GetMask("Enemy", "Ground");
 		animator = GetComponent<Animator>();
 		cameraShake = Camera.main.GetComponent<CameraShake>();
 
@@ -97,6 +97,7 @@ public class Player : MonoBehaviour {
 
 	bool checkIfGrounded() {
 		groundCollider = Physics2D.OverlapCircle((Vector2)transform.position + Vector2.down * playerSize.y * 0.25f, playerSize.x * 0.48f, groundLayerMask);
+		if (groundCollider && groundCollider.isTrigger) groundCollider = null;
 		return (bool)groundCollider;
 	}
 
