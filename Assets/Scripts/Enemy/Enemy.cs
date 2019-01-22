@@ -17,6 +17,7 @@ public class Enemy : MonoBehaviour {
 	protected enum EnemyState {
 		Idle, Chasing, Attacking, Dazed, Death
 	};
+
 	protected EnemyState state = EnemyState.Idle;
 	protected Vector2 movement;
 	protected Vector2 otherMovement;
@@ -86,7 +87,7 @@ public class Enemy : MonoBehaviour {
 		rb2d.AddForce(new Vector2(kbDir, 0.5f) * damage * 75);
 		Instantiate(damageParticles, transform.position, Quaternion.identity);
 		StartCoroutine(flashSprite());
-		if(health < 0.0f) {
+		if(health <= 0.0f) {
 			state = EnemyState.Death;
 			Die(kbDir);
 			return true;

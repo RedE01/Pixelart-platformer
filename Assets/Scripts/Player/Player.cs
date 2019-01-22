@@ -88,7 +88,10 @@ public class Player : MonoBehaviour {
 				Vector2 current = collision.contacts[i].normal.normalized;
 				if (current.y > highest.y) highest = current;
 			}
-			groundNormal = highest;
+			if(highest.y > 0.25f)
+				groundNormal = highest;
+			else
+				groundNormal = Vector2.zero;
 		}
 	}
 
