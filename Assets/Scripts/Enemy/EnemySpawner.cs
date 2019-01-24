@@ -5,6 +5,7 @@ using UnityEngine;
 public class EnemySpawner : MonoBehaviour
 {
 	public GameObject Enemy;
+	public float spawnDelay;
 
     void Start()
     {
@@ -14,7 +15,7 @@ public class EnemySpawner : MonoBehaviour
 	private IEnumerator spawnEnemy() {
 		Instantiate(Enemy, transform.position, Quaternion.identity);
 
-		yield return new WaitForSecondsRealtime(0.5f);
+		yield return new WaitForSecondsRealtime(spawnDelay);
 
 		StartCoroutine(spawnEnemy());
 	}
