@@ -13,6 +13,7 @@ public class PlayerAttack : MonoBehaviour {
 	Player playerScript;
 	Rigidbody2D rb2d;
 	CameraShake cameraShake;
+	Animator animator;
 
 	void Start() {
 		playerSize = GetComponent<CapsuleCollider2D>().size;
@@ -20,12 +21,15 @@ public class PlayerAttack : MonoBehaviour {
 		playerScript = GetComponent<Player>();
 		rb2d = GetComponent<Rigidbody2D>();
 		cameraShake = Camera.main.GetComponent<CameraShake>();
+		animator = GetComponent<Animator>();
 	}
 
 	void Update() {
 		if(Input.GetKeyDown(KeyCode.X)) {
 			attackPos.localPosition = new Vector2(Mathf.Abs(attackPos.localPosition.x) * playerScript.facingDir, attackPos.localPosition.y);
 			Collider2D[] targets = Physics2D.OverlapCircleAll(attackPos.position, attackRadius, targetMask);
+
+			animator.SetTrigger("Attack");
 
 			if(targets.Length > 0) {
 				Collider2D closest = targets[0];
